@@ -15,7 +15,7 @@ export const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    getCurrentLocation();
+    //getCurrentLocation();
   }, []);
 
   // const onRefresh = () => {
@@ -31,20 +31,24 @@ export const Home = () => {
       }}>
       <ScrollView style={{height: '100%'}}>
         <View style={{paddingTop: 20}}>
-          <Text style={HomeStyle.MAIN_TEXT}>{results?.name}</Text>
-        </View>
-        <View style={{paddingTop: 50}}>
-          <Text style={HomeStyle.MAIN_TEXT}>{results?.main?.temp} C</Text>
+          <Text style={HomeStyle.LOCATION_NAME} numberOfLines={1}>
+            {results?.name}
+          </Text>
         </View>
         {!!results.weather ? (
           <>
-            <View style={{alignItems: 'center'}}>
+            <View style={{alignItems: 'center', paddingTop: 30}}>
               <Image
                 style={HomeStyle.WEATHER_ICON}
                 source={{
                   uri: `https://openweathermap.org/img/wn/${results?.weather[0]?.icon}@2x.png`,
                 }}
               />
+            </View>
+            <View style={{paddingTop: 40}}>
+              <Text style={HomeStyle.TEMPERATURE_TEXT}>
+                {results?.main?.temp} C
+              </Text>
             </View>
             <View style={{paddingTop: 50}}>
               <Text style={HomeStyle.MAIN_TEXT}>
@@ -60,7 +64,7 @@ export const Home = () => {
             Feels Like: {results?.main?.feels_like} C
           </Text>
         </View>
-        <View style={{marginVertical: 50}} />
+        <View style={{marginVertical: 40}} />
         <View style={HomeStyle.WEATHER_TABLE}>
           <WeatherColumn title={'Min Temp'} data={results?.main?.temp_min} />
           <View style={{marginHorizontal: 30}} />
@@ -118,8 +122,8 @@ const backgroundColourSwitcher = id => {
 const WeatherColumn = ({title, data}) => {
   return (
     <View style={HomeStyle.WEATHER_COLUMN}>
-      <Text>{title}</Text>
-      <Text>{data}</Text>
+      <Text style={HomeStyle.WEATHER_TITLE}>{title}</Text>
+      <Text style={HomeStyle.WEATHER_DATA}>{data}</Text>
     </View>
   );
 };
