@@ -9,51 +9,61 @@ import {
 } from 'react-native';
 import useResults from '../../hooks/useResults';
 import {HomeStyle} from './home.style';
+import {useSelector, useDispatch} from 'react-redux';
 
-export const Home = () => {
+export const HomeScreen = ({navigation, route}) => {
+  const {weather} = useSelector(state => state.WeatherReducers);
   const [getCurrentLocation, results, errorMessage] = useResults();
   const [refreshing, setRefreshing] = useState(false);
+  const [drivingRes, setDrivingRes] = useState();
 
   useEffect(() => {
-    //getCurrentLocation();
+    getCurrentLocation();
   }, []);
 
-  // const onRefresh = () => {
-  //   getCurrentLocation();
-  // };
+  useEffect(() => {
+    if (route?.params) {
+      if (route?.params.key === 'Searched') {
+        setDrivingRes(weather);
+      }
+    } else {
+      setDrivingRes(results);
+    }
+  }, [route, results]);
 
   return (
     <SafeAreaView
       style={{
         backgroundColor: backgroundColourSwitcher(
-          !!results.weather ? results?.weather[0]?.icon : '00',
+          drivingRes?.weather ? drivingRes?.weather[0]?.icon : '00',
         ),
       }}>
       <ScrollView style={{height: '100%'}}>
+        <Text onPress={() => navigation.navigate('Search')}>Search</Text>
         <View style={{paddingTop: 20}}>
           <Text style={HomeStyle.LOCATION_NAME} numberOfLines={1}>
-            {results?.name}
+            {drivingRes?.name}
           </Text>
         </View>
-        {!!results.weather ? (
+        {!!drivingRes?.weather ? (
           <>
             <View style={{alignItems: 'center', paddingTop: 30}}>
               <Image
                 style={HomeStyle.WEATHER_ICON}
                 source={{
-                  uri: `https://openweathermap.org/img/wn/${results?.weather[0]?.icon}@2x.png`,
+                  uri: `https://openweathermap.org/img/wn/${drivingRes?.weather[0]?.icon}@2x.png`,
                 }}
               />
             </View>
             <View style={{paddingTop: 40}}>
               <Text style={HomeStyle.TEMPERATURE_TEXT}>
-                {results?.main?.temp} C
+                {drivingRes?.main?.temp} C
               </Text>
             </View>
             <View style={{paddingTop: 50}}>
               <Text style={HomeStyle.MAIN_TEXT}>
-                {results?.weather[0]?.description
-                  ? results?.weather[0]?.description
+                {drivingRes?.weather[0]?.description
+                  ? drivingRes?.weather[0]?.description
                   : ''}
               </Text>
             </View>
@@ -61,24 +71,24 @@ export const Home = () => {
         ) : null}
         <View style={{paddingTop: 10}}>
           <Text style={HomeStyle.MAIN_TEXT}>
-            Feels Like: {results?.main?.feels_like} C
+            Feels Like: {drivingRes?.main?.feels_like} C
           </Text>
         </View>
         <View style={{marginVertical: 40}} />
         <View style={HomeStyle.WEATHER_TABLE}>
-          <WeatherColumn title={'Min Temp'} data={results?.main?.temp_min} />
+          <WeatherColumn title={'Min Temp'} data={drivingRes?.main?.temp_min} />
           <View style={{marginHorizontal: 30}} />
-          <WeatherColumn title={'Max Temp'} data={results?.main?.temp_max} />
+          <WeatherColumn title={'Max Temp'} data={drivingRes?.main?.temp_max} />
         </View>
         <View style={HomeStyle.WEATHER_TABLE}>
-          <WeatherColumn title={'Pressure'} data={results?.main?.pressure} />
+          <WeatherColumn title={'Pressure'} data={drivingRes?.main?.pressure} />
           <View style={{marginHorizontal: 30}} />
-          <WeatherColumn title={'Humidity'} data={results?.main?.humidity} />
+          <WeatherColumn title={'Humidity'} data={drivingRes?.main?.humidity} />
         </View>
         <View style={HomeStyle.WEATHER_TABLE}>
-          <WeatherColumn title={'Wind Speed'} data={results?.wind?.speed} />
+          <WeatherColumn title={'Wind Speed'} data={drivingRes?.wind?.speed} />
           <View style={{marginHorizontal: 30}} />
-          <WeatherColumn title={'Wind Degree'} data={results?.wind?.deg} />
+          <WeatherColumn title={'Wind Degree'} data={drivingRes?.wind?.deg} />
         </View>
       </ScrollView>
     </SafeAreaView>
