@@ -3,11 +3,11 @@ import {StyleSheet} from 'react-native';
 export const SearchStyle = StyleSheet.create({
   BASE_SCREEN: {
     height: '100%',
-    backgroundColor: 'white',
+    backgroundColor: '#529e94',
   },
   SEARCH_BAR: {
     justifyContent: 'center',
-    flex: 0.4,
+    marginVertical: 30,
   },
   WEATHER_ICON: {
     width: 100,

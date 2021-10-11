@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useLayoutEffect} from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {SearchBar} from './components/search-bar';
 import {useSelector, useDispatch} from 'react-redux';
@@ -19,6 +19,19 @@ export const SearchScreen = ({navigation}) => {
       console.log('Fare', weather);
     }
   }, []);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'Search Weather',
+      headerTitleStyle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
+      headerStyle: {
+        backgroundColor: 'white',
+      },
+    });
+  }, [navigation]);
 
   return (
     <View style={SearchStyle.BASE_SCREEN}>

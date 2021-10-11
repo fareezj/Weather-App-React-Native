@@ -30,7 +30,7 @@ export const HomeScreen = ({navigation, route}) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'Weather App',
+      title: 'Weather',
       headerTitleStyle: {
         fontSize: 16,
         fontWeight: 'bold',

@@ -4,16 +4,17 @@ import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
 export const SearchBar = ({search, onSearchChange, onSearchSubmit}) => {
   return (
     <View style={SearchBarStyle.BASE}>
-      <Text style={SearchBarStyle.TITLE}>Search Location</Text>
       <TextInput
         style={SearchBarStyle.INPUT}
         placeholder="Search Place"
+        placeholderTextColor="black"
         value={search}
         onChangeText={onSearchChange}
       />
       <Button
         style={SearchBarStyle.BUTTON}
         title="Search"
+        color="black"
         onPress={onSearchSubmit}
       />
     </View>
@@ -22,17 +23,19 @@ export const SearchBar = ({search, onSearchChange, onSearchSubmit}) => {
 
 const SearchBarStyle = StyleSheet.create({
   BASE: {
-    paddingHorizontal: 20,
+    marginHorizontal: 20,
     alignContent: 'center',
-  },
-  TITLE: {
-    fontSize: 22,
-    textAlign: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   INPUT: {
     borderWidth: 1,
-    borderColor: 'gray',
+    borderRadius: 30,
+    paddingHorizontal: 15,
+    borderColor: 'black',
     paddingVertical: 10,
+    flexGrow: 1,
+    color: 'black',
   },
   BUTTON: {},
 });
