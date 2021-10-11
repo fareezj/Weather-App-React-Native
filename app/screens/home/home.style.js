@@ -5,7 +5,17 @@ export const HomeStyle = StyleSheet.create({
     fontSize: 35,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: 'white',
+  },
+  LOCATION_ICON: {
+    height: 30,
+    width: 30,
+  },
+  HEADER_BASE: {
+    alignItems: 'flex-end',
+  },
+  SEARCH_ICON: {
+    height: 30,
+    width: 30,
   },
   TEMPERATURE_TEXT: {
     fontSize: 40,
@@ -17,7 +27,6 @@ export const HomeStyle = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     fontStyle: 'italic',
-    color: 'white',
   },
   WEATHER_TABLE: {
     flexDirection: 'row',

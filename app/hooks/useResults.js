@@ -7,6 +7,8 @@ const apiKey = 'db8ba431e6d1a0c3b20197d305a6b4c7';
 export default () => {
   const [results, setResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
 
   const getCurrentLocation = () => {
     RNLocation.configure({
@@ -22,8 +24,10 @@ export default () => {
       if (granted) {
         this.locationSubscription = RNLocation.subscribeToLocationUpdates(
           locations => {
+            setLatitude(locations[0].latitude);
+            setLongitude(locations[0].longitude);
             getWeatherApi(locations[0].latitude, locations[0].longitude);
-            console.log(locations);
+            //console.log(locations);
           },
         );
       }
@@ -46,7 +50,14 @@ export default () => {
       });
   };
 
-  return [getCurrentLocation, results, errorMessage];
+  return [
+    getCurrentLocation,
+    results,
+    errorMessage,
+    latitude,
+    longitude,
+    getWeatherApi,
+  ];
 };
 
 // const getWeatherApi = () => {
